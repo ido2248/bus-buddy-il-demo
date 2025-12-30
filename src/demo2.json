@@ -1,0 +1,43 @@
+[
+  {
+    "busRoutes": [
+      {
+        "name_bus_route": "37",
+        "walking_time1": 0,
+        "bus_stop_ride": "הרב שלום שבזי / שלמה המלך",
+        "bus_stop_id1": 39584782,
+        "bus_stop_code1": 32615,
+        "bus_name": "37",
+        "bus_stop_exit": "ת. רק''ל בלינסון/קניון אבנת",
+        "bus_stop_id2": 39588257,
+        "bus_stop_code2": 34063,
+        "walking_time2": 2,
+        "travel_time_hms": "00:18:51",
+        "min_befor_firstBus_arrive": 4,
+        "travel_plus_walk_hms": "00:20:51",
+        "arrival_from_start_hms": "00:30:44"
+      }
+    ]
+  },
+  {
+    "busRoutes": [
+      {
+        "name_bus_route": "27",
+        "walking_time1": 2,
+        "bus_stop_ride": "צומת שבזי",
+        "bus_stop_id1": 39584871,
+        "bus_stop_code1": 32727,
+        "bus_name": "27",
+        "bus_stop_exit": "פארק יצחק אוחיון/בזל",
+        "bus_stop_id2": 39590113,
+        "bus_stop_code2": 38255,
+        "walking_time2": 2,
+        "travel_time_hms": "00:15:35",
+        "min_befor_firstBus_arrive": 6,
+        "travel_plus_walk_hms": "00:17:35",
+        "arrival_from_start_hms": "00:47:42"
+      }
+    ]
+  }
+]
+

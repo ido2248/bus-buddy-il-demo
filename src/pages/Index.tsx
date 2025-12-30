@@ -6,6 +6,8 @@ import RouteCard, { TravelRoute } from "@/components/RouteCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Bell, Loader2, AlertCircle } from "lucide-react";
+import demo1Data from "@/demo1.json";
+import demo2Data from "@/demo2.json";
 
 const Index = () => {
   const [routes, setRoutes] = useState<TravelRoute[]>([]);
@@ -25,10 +27,64 @@ const Index = () => {
       setIsLoading(true);
       setError(null);
 
-      // Backend removed - no longer fetching routes
-      setRoutes([]);
-      setSelectedDestination(trimmedQuery);
-      setEstimatedArrivalGap(null);
+      // Check if search text is "דיזנגוף סנטר"
+      if (trimmedQuery === "דיזנגוף סנטר") {
+        try {
+          // Transform the data to match TravelRoute interface
+          // Merge bus_route fields with top-level fields
+          const transformedRoutes: TravelRoute[] = demo1Data.map((item: any) => ({
+            ...item.bus_route,
+            min_befor_firstBus_arrive: item.min_befor_firstBus_arrive,
+            time_gap_hhmmss: item.time_gap_hhmmss,
+            time_gap_minutes: item.time_gap_minutes,
+            min_befor_arrive: item.min_befor_arrive,
+            date_to_stop4: item.date_to_stop4,
+          }));
+          
+          setRoutes(transformedRoutes);
+          setSelectedDestination(trimmedQuery);
+          setEstimatedArrivalGap(null);
+        } catch (err) {
+          setError("שגיאה בטעינת הנתונים מהקובץ.");
+          setRoutes([]);
+        }
+      } else if (trimmedQuery === "הקניון הגדול") {
+        try {
+          // Transform the data to match TravelRoute interface
+          // Flatten busRoutes array and map field names
+          const transformedRoutes: TravelRoute[] = demo2Data.flatMap((item: any) =>
+            item.busRoutes.map((route: any) => ({
+              name_bus_route: route.name_bus_route,
+              walking_time1: route.walking_time1,
+              bus_stop_ride1: route.bus_stop_ride,
+              bus_stop_id1: route.bus_stop_id1,
+              bus_stop_code1: route.bus_stop_code1,
+              bus_name1: route.bus_name,
+              bus_stop_exit1: route.bus_stop_exit,
+              bus_stop_id2: route.bus_stop_id2,
+              bus_stop_code2: route.bus_stop_code2,
+              walking_time2: route.walking_time2,
+              min_befor_firstBus_arrive: route.min_befor_firstBus_arrive,
+              travel_time_hms: route.travel_time_hms,
+              travel_plus_walk_hms: route.travel_plus_walk_hms,
+              arrival_from_start_hms: route.arrival_from_start_hms,
+            }))
+          );
+          
+          setRoutes(transformedRoutes);
+          setSelectedDestination(trimmedQuery);
+          setEstimatedArrivalGap(null);
+        } catch (err) {
+          setError("שגיאה בטעינת הנתונים מהקובץ.");
+          setRoutes([]);
+        }
+      } else {
+        // Backend removed - no longer fetching routes
+        setRoutes([]);
+        setSelectedDestination(trimmedQuery);
+        setEstimatedArrivalGap(null);
+      }
+      
       setIsLoading(false);
     },
     [],
